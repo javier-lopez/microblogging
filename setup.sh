@@ -1,7 +1,7 @@
 #!/bin/sh
-CURRENT_DIR="$(cd "$(dirname "${0}")" && pwd)"
-
 set -x
+
+CURRENT_DIR="$(cd "$(dirname "${0}")" && pwd)"
 
 cd "${CURRENT_DIR}"
 SECS="3"
