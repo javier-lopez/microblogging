@@ -1,0 +1,37 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<h1>Búsqueda</h1>
+    {% if posts.items %}
+        <p>Se muestran los siguientes resultados para: "{{pattern}}"</p>
+        {% for post in posts.items %}
+            {% include "post.html.j2" %}
+        {% endfor %}
+
+        <br>
+        {% if posts.has_prev %}
+            <a href="{{url_for('search', pattern=pattern, page=posts.prev_num)}}">&#9666;&#9666; Anterior</a>
+        {% else %}
+            &#9666;&#9666; Anterior
+        {% endif %}
+        {% if posts.has_next %}
+            | <a href="{{url_for('search', pattern=pattern, page=posts.next_num)}}">Siguiente &#9656;&#9656;</a>
+        {% else %}
+            | Siguiente &#9656;&#9656;
+        {% endif %}
+    {% else %}
+    <form action="" method="post" name="search">
+        {{ form.hidden_tag() }}
+        <table>
+            <tr valign="top">
+                <td>{{ form.search(size=32) }}</td>
+                <td>
+                    {% for error in form.search.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </td>
+                <td>{{ form.submit() }}</td>
+            </tr>
+        </table>
+    </form>
+    {% endif %}
+{% endblock %}

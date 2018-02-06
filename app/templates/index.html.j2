@@ -1,0 +1,47 @@
+{% extends "base.html.j2" %}
+{% block content %}
+    {% if user %}
+        <h1>Hola, {{ user.first_name }}!</h1>
+        <form action="" method="post" name="post">
+        {{ form.hidden_tag() }}
+        <table>
+            <tr valign="top">
+                <td>Nuevo mensaje</td>
+                <td>{{ form.post(size=128) }}</td>
+                <td>
+                    {% for error in form.post.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </td>
+                <td>{{ form.submit() }}</td>
+            </tr>
+        </table>
+        </form>
+        <br>
+    {% else %}
+        <h1>Hola, invitado!</h1>
+    {% endif %}
+
+    {% if posts.items %}
+        {# {% for post in posts %} #}
+        {% for post in posts.items %}
+            {% include "post.html.j2" %}
+        {% endfor %}
+
+        <br>
+        {% if posts.has_prev %}
+            <a href="{{url_for('index', page=posts.prev_num)}}">&#9666;&#9666; Anterior</a>
+        {% else %}
+            &#9666;&#9666; Anterior
+        {% endif %}
+        {% if posts.has_next %}
+            | <a href="{{url_for('index', page=posts.next_num)}}">Siguiente &#9656;&#9656;</a>
+        {% else %}
+            | Siguiente &#9656;&#9656;
+        {% endif %}
+    {% else %}
+        <div>
+            <p>Aún no hay mensajes =(</p>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+<table>
+    <tr valign="top">
+        <td><a href="{{url_for('user', username=post.author.username)}}"><img src="{{post.author.avatar(50)}}"></a></td>
+        <td><i>{{post.author.username}} dice:</i><br>{{post.body}}</td>
+        {#
+        <td><a href="{{url_for('user', username=post.author.username)}}"><i>{{post.author.username}} dice:</i></a><br>{{post.body}}</td>
+        #}
+        {% if post.tags %}
+        Tags: {{ post.tags }}
+        {% endif %}
+    </tr>
+</table>

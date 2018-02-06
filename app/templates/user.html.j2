@@ -1,0 +1,23 @@
+{% extends "base.html.j2" %}
+
+{% block content %}
+  <table>
+      <tr valign="top">
+          <td><img src="{{user.avatar(128)}}"></td>
+          <td>
+            <h1>Usuario: {{user.username}}</h1>
+            {% if user.about_me %}<p>{{user.about_me}}</p>{% endif %}
+            {% if user.last_seen %}<p><i>Último acceso: {{user.last_seen}}</i></p>{% endif %}
+            {% if user.id == current_user.id %}<p><a href="{{url_for('edit')}}">Editar</a></p>
+            {% elif not current_user.is_following(user) %}
+                  <a href="{{url_for('follow', username=user.username)}}">Seguir</a>
+            {% else %}
+                  <a href="{{url_for('unfollow', username=user.username)}}">Dejar de seguir</a>
+            {% endif %}
+          </td>
+      </tr>
+  </table>
+  {% for post in posts %}
+    {% include "post.html.j2" %}
+  {% endfor %}
+{% endblock %}

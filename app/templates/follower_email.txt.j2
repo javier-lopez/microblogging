@@ -1,0 +1,9 @@
+{{user.first_name}},
+
+{{follower.username}} ahora te sigue. Haz click en el siguiente vínculo para visitar su perfil:
+
+{{url_for('user', username=follower.username, _external=True)}}
+
+Saludos,
+
+Microblogging.
